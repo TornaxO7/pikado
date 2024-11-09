@@ -1,6 +1,5 @@
 package de.tornaxo7.pikado.ui.login
 
-import android.webkit.WebSettings.TextSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,28 +9,47 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import de.tornaxo7.pikado.R
 
 @Composable
-fun LoginComposable() {
-    LoginContentPreview()
+fun LoginComposable(
+    onLogin: () -> Unit,
+    onRegister: () -> Unit
+) {
+    val viewModel: LoginViewModel = viewModel(factory = LoginViewModel.Factory)
+    val uiState by viewModel.uiState.collectAsState()
+
+    LoginContent(
+        username = uiState.username,
+        password = uiState.password,
+        serverUrl = uiState.serverUrl,
+        onUsernameChange = { viewModel.setUsername(it) },
+        onPasswordChange = { viewModel.setPassword(it) },
+        onServerUrlChange = { viewModel.setServerUrl(it) },
+        onLogin = onLogin,
+        onRegister = onRegister,
+    )
 }
 
 @Composable
@@ -39,7 +57,7 @@ private fun LoginContent(
     username: String,
     password: String,
     serverUrl: String,
-    onLoginChange: (String) -> Unit,
+    onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onServerUrlChange: (String) -> Unit,
     onLogin: () -> Unit,
@@ -71,19 +89,41 @@ private fun LoginContent(
 
                     OutlinedTextField(
                         value = username,
-                        onValueChange = onLoginChange,
+                        onValueChange = onUsernameChange,
+                        singleLine = true,
+                        leadingIcon = {
+                            Icon(
+                                Icons.Default.Person, contentDescription = stringResource(
+                                    id = R.string.login_username
+                                )
+                            )
+                        },
                         label = { Text(stringResource(id = R.string.login_username)) }
                     )
 
                     OutlinedTextField(
                         value = password,
                         onValueChange = onPasswordChange,
+                        singleLine = true,
+                        leadingIcon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.password),
+                                contentDescription = stringResource(id = R.string.login_password)
+                            )
+                        },
                         label = { Text(stringResource(id = R.string.login_password)) }
                     )
 
                     OutlinedTextField(
                         value = serverUrl,
                         onValueChange = onServerUrlChange,
+                        singleLine = true,
+                        leadingIcon = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.server),
+                                contentDescription = stringResource(id = R.string.login_server_url)
+                            )
+                        },
                         label = { Text(stringResource(id = R.string.login_server_url)) }
                     )
 
@@ -126,7 +166,7 @@ private fun LoginContentPreview() {
         username = "",
         password = "",
         serverUrl = "",
-        onLoginChange = {},
+        onUsernameChange = {},
         onPasswordChange = {},
         onServerUrlChange = {},
         onLogin = { },
