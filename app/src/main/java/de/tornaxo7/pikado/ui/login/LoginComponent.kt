@@ -33,7 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import de.tornaxo7.pikado.R
 
 @Composable
-fun LoginComposable(
+fun LoginComponent(
     onLogin: () -> Unit,
     onRegister: () -> Unit
 ) {

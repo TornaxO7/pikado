@@ -26,7 +26,7 @@ private fun HomeContent(
 
 @Preview(showBackground = true)
 @Composable
-private fun HomeComponentPreview() {
+private fun HomeContentPreview() {
     Scaffold(
         topBar = { HomeComponentTopBar()}
     ){
