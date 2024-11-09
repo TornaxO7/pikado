@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "de.tornaxo7.pikado"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "de.tornaxo7.pikado"
