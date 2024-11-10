@@ -25,14 +25,21 @@ import de.tornaxo7.pikado.ui.theme.PikadoTheme
 
 @Composable
 fun HomeComponent(
-    padding: PaddingValues
+    padding: PaddingValues,
+    tasks: List<TaskPreviewData>,
 ) {
-
+    HomeContent(
+        padding = padding,
+        tasks = tasks
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeComponentTopBar() {
+fun HomeComponentTopBar(
+    onSearchClick: () -> Unit,
+    onFilterClick: () -> Unit
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -41,7 +48,7 @@ fun HomeComponentTopBar() {
         },
         actions = {
             IconButton(
-                onClick = {}
+                onClick = onSearchClick
             ) {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -50,7 +57,7 @@ fun HomeComponentTopBar() {
             }
 
             IconButton(
-                onClick = {}
+                onClick = onFilterClick
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.filter),
@@ -77,8 +84,8 @@ private fun HomeContent(
                 title = it.title,
                 projectName = it.project,
                 dueDate = it.dueDate,
-                onCardClick = { },
-                onCheckboxClick = { },
+                onCardClick = it.onCardClick,
+                onCheckboxClick = it.onCheckboxClick,
                 modifier = Modifier
                     .padding(10.dp)
             )
@@ -94,7 +101,7 @@ private fun HomeContentPreview() {
         TaskPreviewData(
             title = "Task 1",
             dueDate = "Tomorrow",
-            project = "Ooof"
+            project = "Ooof",
         ),
         TaskPreviewData(
             title = "Task 2",
@@ -115,7 +122,12 @@ private fun HomeContentPreview() {
 
     PikadoTheme {
         Scaffold(
-            topBar = { HomeComponentTopBar() }
+            topBar = {
+                HomeComponentTopBar(
+                    onFilterClick = {},
+                    onSearchClick = {}
+                )
+            }
         ) {
             HomeContent(
                 padding = it,

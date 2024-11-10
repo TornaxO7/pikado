@@ -4,4 +4,6 @@ data class TaskPreviewData(
     val title: String,
     val dueDate: String,
     val project: String,
+    val onCheckboxClick: () -> Unit = {},
+    val onCardClick: () -> Unit = {},
 )
