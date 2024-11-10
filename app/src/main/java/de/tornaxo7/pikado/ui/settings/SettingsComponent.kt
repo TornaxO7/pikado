@@ -48,7 +48,12 @@ fun SettingsComponent() {
 @Composable
 fun SettingsTopBar() {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = R.string.settings_title)) }
+        title = {
+            Text(
+                text = stringResource(id = R.string.settings_title),
+                fontSize = 30.sp
+            )
+        }
     )
 }
 

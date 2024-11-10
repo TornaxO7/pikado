@@ -17,6 +17,10 @@
     <string name="home_search">Search task</string>
     <string name="home_filter">Filter tasks</string>
 
+    <!-- Projects -->
+    <string name="projects_title">Projects</string>
+    <string name="projects_add_project">Create new project</string>
+
     <!-- Settings -->
     <string name="settings_title">Settings</string>
 
