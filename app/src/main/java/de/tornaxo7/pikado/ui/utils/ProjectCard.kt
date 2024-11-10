@@ -1,11 +1,16 @@
 package de.tornaxo7.pikado.ui.utils
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults.cardColors
@@ -29,24 +34,32 @@ fun ProjectCard(
     onClick: () -> Unit,
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier
+            .height(40.dp),
         onClick = onClick,
         ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier
+                .fillMaxHeight()
         ) {
-            RoundedColorDisplay(
-                color = color,
-                modifier = Modifier.padding(5.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .background(color)
+                    .fillMaxHeight()
+                    .width(20.dp)
+            ) {}
 
             Text(
                 text = title,
                 fontSize = 20.sp,
                 modifier = Modifier
-                    .padding(start = 5.dp))
+                    .padding(
+                        start = 10.dp,
+                        end = 10.dp
+                    )
+            )
         }
     }
 }
