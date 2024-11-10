@@ -26,12 +26,14 @@ import de.tornaxo7.pikado.R
 @Composable
 fun RoundedCheckbox(
     onClick: () -> Unit,
-    initIsChecked: Boolean = false
+    initIsChecked: Boolean = false,
+    modifier: Modifier = Modifier,
 ) {
     var isChecked by remember { mutableStateOf(initIsChecked) }
 
     Card(
-        shape = CircleShape
+        shape = CircleShape,
+        modifier = modifier
     ) {
         Box(
             contentAlignment = Alignment.Center,

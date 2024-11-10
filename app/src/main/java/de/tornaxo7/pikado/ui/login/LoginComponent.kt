@@ -70,9 +70,7 @@ private fun LoginContent(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Card(
-                modifier = Modifier
-            ) {
+            Card {
                 Column(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
