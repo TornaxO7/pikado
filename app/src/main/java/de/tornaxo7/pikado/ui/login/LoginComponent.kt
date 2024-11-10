@@ -31,6 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import de.tornaxo7.pikado.R
+import de.tornaxo7.pikado.ui.theme.PikadoTheme
+import kotlinx.serialization.Serializable
+
+@Serializable
+object LoginPage
 
 @Composable
 fun LoginComponent(
@@ -139,7 +144,9 @@ private fun LoginContent(
                                 .padding(end = 5.dp)
                         )
                         {
-                            Text(stringResource(id = R.string.login_register))
+                            Text(
+                                text = stringResource(id = R.string.login_register),
+                            )
                         }
 
                         Button(
@@ -148,7 +155,9 @@ private fun LoginContent(
                                 .weight(0.1f)
                                 .padding(start = 5.dp)
                         ) {
-                            Text(stringResource(id = R.string.login_login))
+                            Text(
+                                text = stringResource(id = R.string.login_login),
+                            )
                         }
                     }
                 }
@@ -160,14 +169,16 @@ private fun LoginContent(
 @Composable
 @Preview(showBackground = true)
 private fun LoginContentPreview() {
-    LoginContent(
-        username = "",
-        password = "",
-        serverUrl = "",
-        onUsernameChange = {},
-        onPasswordChange = {},
-        onServerUrlChange = {},
-        onLogin = { },
-        onRegister = { }
-    )
+    PikadoTheme {
+        LoginContent(
+            username = "",
+            password = "",
+            serverUrl = "",
+            onUsernameChange = {},
+            onPasswordChange = {},
+            onServerUrlChange = {},
+            onLogin = { },
+            onRegister = { }
+        )
+    }
 }

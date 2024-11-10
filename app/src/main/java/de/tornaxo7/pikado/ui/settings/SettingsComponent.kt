@@ -31,27 +31,38 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import de.tornaxo7.pikado.R
 import de.tornaxo7.pikado.ui.theme.PikadoTheme
+import kotlinx.serialization.Serializable
+
+@Serializable
+object SettingsPage
 
 @Composable
 fun SettingsComponent() {
+}
+
+@Composable
+fun SettingsFloatingActionButton() {
 
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsTopBar() {
+fun SettingsTopAppBar() {
     CenterAlignedTopAppBar(
         title = {
             Text(
                 text = stringResource(id = R.string.settings_title),
-                fontSize = 30.sp
+                fontSize = with(LocalDensity.current) {
+                    dimensionResource(id = R.dimen.screen_title).toSp()
+                }
             )
         }
     )
@@ -234,7 +245,7 @@ private fun SettingsContentPreview() {
 
     PikadoTheme {
         Scaffold(
-            topBar = { SettingsTopBar() }
+            topBar = { SettingsTopAppBar() }
         ) {
             SettingsContent(
                 profileData = profileData,

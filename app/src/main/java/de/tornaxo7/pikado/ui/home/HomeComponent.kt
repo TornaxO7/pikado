@@ -1,7 +1,6 @@
 package de.tornaxo7.pikado.ui.home
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,25 +15,40 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import de.tornaxo7.pikado.R
 import de.tornaxo7.pikado.ui.task.card.TaskCardComponent
 import de.tornaxo7.pikado.ui.theme.PikadoTheme
+import kotlinx.serialization.Serializable
+
+@Serializable
+object HomePage
 
 @Composable
 fun HomeComponent(
-    padding: PaddingValues,
-    tasks: List<TaskPreviewData>,
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(factory = HomeViewModel.Factory),
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     HomeContent(
-        padding = padding,
-        tasks = tasks
+        tasks = uiState.tasks,
+        modifier = modifier
     )
+}
+
+@Composable
+fun HomeFloatingActionButton() {
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +61,9 @@ fun HomeComponentTopBar(
         title = {
             Text(
                 text = stringResource(id = R.string.home_title),
-                fontSize = 30.sp
+                fontSize = with(LocalDensity.current) {
+                    dimensionResource(id = R.dimen.screen_title).toSp()
+                }
             )
         },
         actions = {
@@ -55,6 +71,8 @@ fun HomeComponentTopBar(
                 onClick = onSearchClick
             ) {
                 Icon(
+                    modifier = Modifier
+                        .size(dimensionResource(id = R.dimen.icon_size)),
                     imageVector = Icons.Default.Search,
                     contentDescription = stringResource(id = R.string.home_search)
                 )
@@ -64,6 +82,8 @@ fun HomeComponentTopBar(
                 onClick = onFilterClick
             ) {
                 Icon(
+                    modifier = Modifier
+                        .size(dimensionResource(id = R.dimen.icon_size)),
                     painter = painterResource(id = R.drawable.filter),
                     contentDescription = stringResource(
                         id = R.string.home_filter
@@ -76,12 +96,11 @@ fun HomeComponentTopBar(
 
 @Composable
 private fun HomeContent(
-    padding: PaddingValues,
     tasks: List<TaskPreviewData>,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = Modifier
-            .padding(padding)
+        modifier = modifier
     ) {
         items(tasks) {
             TaskCardComponent(
@@ -135,8 +154,8 @@ private fun HomeContentPreview() {
             }
         ) {
             HomeContent(
-                padding = it,
                 tasks = tasks,
+                modifier = Modifier.padding(it)
             )
         }
     }

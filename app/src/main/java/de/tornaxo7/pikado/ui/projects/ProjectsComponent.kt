@@ -19,13 +19,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import de.tornaxo7.pikado.R
 import de.tornaxo7.pikado.ui.theme.PikadoTheme
 import de.tornaxo7.pikado.ui.utils.ProjectCard
+import kotlinx.serialization.Serializable
+
+@Serializable
+object ProjectsPage
 
 @Composable
 fun ProjectsComponent() {
@@ -34,18 +39,25 @@ fun ProjectsComponent() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProjectsTopAppBar(
-    title: String,
-) {
+fun ProjectsTopAppBar() {
     CenterAlignedTopAppBar(
-        title = { Text(text = title, fontSize = 30.sp) },
+        title = {
+            Text(
+                text = stringResource(id = R.string.projects_title),
+                fontSize = with(LocalDensity.current) {
+                    dimensionResource(id = R.dimen.screen_title).toSp()
+                }
+            )
+        },
     )
 }
 
 @Composable
-fun ProjectsFloatingActionButton() {
+fun ProjectsFloatingActionButton(
+    onClick: () -> Unit
+) {
     FloatingActionButton(
-        onClick = {}
+        onClick = onClick
     ) {
         Icon(
             imageVector = Icons.Default.Add,
@@ -72,7 +84,7 @@ private fun ProjectsContent(
                 color = it.color,
                 onClick = {},
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(200.dp)
                     .padding(5.dp)
             )
         }
@@ -93,9 +105,13 @@ private fun ProjectContentPreview() {
     PikadoTheme {
         Scaffold(
             topBar = {
-                ProjectsTopAppBar(title = stringResource(id = R.string.projects_title))
+                ProjectsTopAppBar()
             },
-            floatingActionButton = { ProjectsFloatingActionButton() }
+            floatingActionButton = {
+                ProjectsFloatingActionButton(
+                    onClick = {}
+                )
+            }
         ) {
             ProjectsContent(
                 modifier = Modifier.padding(it),
