@@ -13,7 +13,16 @@
     <string name="task_card_checked">Task is done</string>
 
     <!-- Home -->
-    <string name ="home_title">Home</string>
-    <string name ="home_search">Search task</string>
-    <string name ="home_filter">Filter tasks</string>
+    <string name="home_title">Home</string>
+    <string name="home_search">Search task</string>
+    <string name="home_filter">Filter tasks</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_profile_picture">Profile picture</string>
+    <string name="settings_switch_user">Switch user</string>
+    <string name="settings_logout">Logout</string>
+    <string name="settings_username">Username</string>
+    <string name="settings_server_url">Server Url</string>
+
 </resources>
