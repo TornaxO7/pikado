@@ -8,4 +8,7 @@
     <string name="login_server_url">Server Url</string>
     <string name="login_register">Register</string>
     <string name="login_login">Login</string>
+
+    <!-- task-card -->
+    <string name="task_card_checked">Task is done</string>
 </resources>
