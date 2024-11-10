@@ -1,8 +1,14 @@
 package de.tornaxo7.pikado.ui.projects
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -55,7 +61,11 @@ private fun ProjectsContent(
     modifier: Modifier,
     projects: List<ProjectDisplay>,
 ) {
-    LazyColumn(
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 150.dp),
+        contentPadding = PaddingValues(5.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
         items(projects) {
@@ -64,8 +74,8 @@ private fun ProjectsContent(
                 color = it.color,
                 onClick = {},
                 modifier = Modifier
-                    .fillParentMaxWidth()
-                    .padding(10.dp)
+                    .size(150.dp)
+                    .padding(5.dp)
             )
         }
     }
