@@ -13,10 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PikadoTheme {
-                LoginComponent(
-                    onLogin = {},
-                    onRegister = {}
-                )
+
             }
         }
     }
