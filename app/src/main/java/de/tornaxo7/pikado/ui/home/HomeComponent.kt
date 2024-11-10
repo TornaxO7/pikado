@@ -2,7 +2,9 @@ package de.tornaxo7.pikado.ui.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -89,6 +91,7 @@ private fun HomeContent(
                 onCardClick = it.onCardClick,
                 onCheckboxClick = it.onCheckboxClick,
                 modifier = Modifier
+                    .height(100.dp)
                     .padding(10.dp)
             )
         }

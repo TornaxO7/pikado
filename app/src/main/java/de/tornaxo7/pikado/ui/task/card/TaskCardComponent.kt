@@ -2,10 +2,14 @@ package de.tornaxo7.pikado.ui.task.card
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.MaterialTheme
@@ -55,15 +59,20 @@ private fun TaskCardContent(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .padding(5.dp)
+                .fillMaxHeight()
         ) {
             RoundedCheckbox(
                 onClick = onCheckboxClick,
                 initIsChecked = false,
-                modifier = Modifier.padding(5.dp)
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(5.dp)
             )
 
             Column(
+                verticalArrangement = Arrangement.Center,
                 modifier = Modifier
+                    .fillMaxHeight()
                     .padding(start = 5.dp)
                     .clickable { onCardClick() }
             ) {
@@ -99,6 +108,8 @@ private fun TaskCardComposablePreview() {
             dueDate = "Due in 69 days (nice)!",
             onCardClick = {},
             onCheckboxClick = {},
+            modifier = Modifier
+                .height(100.dp)
         )
     }
 }
