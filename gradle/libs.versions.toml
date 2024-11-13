@@ -40,7 +40,8 @@ androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-version" }
 
 # datastore
-androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "data-store"}
+androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "data-store"}
+
 # navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 

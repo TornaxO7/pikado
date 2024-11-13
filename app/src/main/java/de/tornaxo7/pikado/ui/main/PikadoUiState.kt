@@ -7,5 +7,7 @@ enum class PikadoScreen {
 }
 
 data class PikadoUiState(
-    val selectedScreen: PikadoScreen = PikadoScreen.Home
+    val selectedScreen: PikadoScreen = PikadoScreen.Home,
+    val stillLoadingLastLoggedInUser: Boolean = true,
+    val isLoggedIn: Boolean = false,
 )

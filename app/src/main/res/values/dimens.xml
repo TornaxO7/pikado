@@ -2,4 +2,5 @@
 <resources>
     <dimen name="screen_title">30.sp</dimen>
     <dimen name="icon_size">30.dp</dimen>
+    <dimen name="loading_screen_size">64.dp</dimen>
 </resources>

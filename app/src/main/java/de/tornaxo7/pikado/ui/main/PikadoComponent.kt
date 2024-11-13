@@ -1,20 +1,26 @@
 package de.tornaxo7.pikado.ui.main
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -31,6 +37,7 @@ import de.tornaxo7.pikado.ui.home.HomeComponent
 import de.tornaxo7.pikado.ui.home.HomeComponentTopBar
 import de.tornaxo7.pikado.ui.home.HomeFloatingActionButton
 import de.tornaxo7.pikado.ui.home.HomePage
+import de.tornaxo7.pikado.ui.login.LoginComponent
 import de.tornaxo7.pikado.ui.projects.ProjectsComponent
 import de.tornaxo7.pikado.ui.projects.ProjectsFloatingActionButton
 import de.tornaxo7.pikado.ui.projects.ProjectsPage
@@ -49,114 +56,144 @@ fun PikadoComponent(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    Scaffold(
-        topBar = {
-            when (uiState.selectedScreen) {
-                PikadoScreen.Home -> HomeComponentTopBar(
-                    onSearchClick = {},
-                    onFilterClick = {},
-                )
+    LaunchedEffect(Unit) {
+        viewModel.getLastLoggedInUser()
+    }
 
-                PikadoScreen.Projects -> ProjectsTopAppBar()
-                PikadoScreen.Settings -> SettingsTopAppBar()
-            }
-        },
-        floatingActionButton = {
-            when (uiState.selectedScreen) {
-                PikadoScreen.Home -> HomeFloatingActionButton()
-                PikadoScreen.Projects -> ProjectsFloatingActionButton(
-                    onClick = {},
-                )
+    if (uiState.stillLoadingLastLoggedInUser) {
+        LoadingScreen()
+    } else {
+        if (!uiState.isLoggedIn) {
+            LoginComponent(
+                onLogin = {},
+                onRegister = {}
+            )
+        } else {
+            Scaffold(
+                topBar = {
+                    when (uiState.selectedScreen) {
+                        PikadoScreen.Home -> HomeComponentTopBar(
+                            onSearchClick = {},
+                            onFilterClick = {},
+                        )
 
-                PikadoScreen.Settings -> SettingsFloatingActionButton()
-            }
-        },
-        bottomBar = {
-            BottomAppBar(
-                modifier = Modifier
-                    .height(100.dp)
-            ) {
-                NavigationBarItem(
-                    selected = uiState.selectedScreen == PikadoScreen.Home,
-                    label = {
-                        Text(text = stringResource(id = R.string.home_title))
-                    },
-                    onClick = {
-                        navController.navigate(HomePage)
-                        viewModel.setScreen(PikadoScreen.Home)
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier
-                                .size(dimensionResource(id = R.dimen.icon_size)),
-                            imageVector = Icons.Default.Home, contentDescription = stringResource(
-                                id = R.string.home_title
-                            )
+                        PikadoScreen.Projects -> ProjectsTopAppBar()
+                        PikadoScreen.Settings -> SettingsTopAppBar()
+                    }
+                },
+                floatingActionButton = {
+                    when (uiState.selectedScreen) {
+                        PikadoScreen.Home -> HomeFloatingActionButton()
+                        PikadoScreen.Projects -> ProjectsFloatingActionButton(
+                            onClick = {},
+                        )
+
+                        PikadoScreen.Settings -> SettingsFloatingActionButton()
+                    }
+                },
+                bottomBar = {
+                    BottomAppBar(
+                        modifier = Modifier
+                            .height(100.dp)
+                    ) {
+                        NavigationBarItem(
+                            selected = uiState.selectedScreen == PikadoScreen.Home,
+                            label = {
+                                Text(text = stringResource(id = R.string.home_title))
+                            },
+                            onClick = {
+                                navController.navigate(HomePage)
+                                viewModel.setScreen(PikadoScreen.Home)
+                            },
+                            icon = {
+                                Icon(
+                                    modifier = Modifier
+                                        .size(dimensionResource(id = R.dimen.icon_size)),
+                                    imageVector = Icons.Default.Home,
+                                    contentDescription = stringResource(
+                                        id = R.string.home_title
+                                    )
+                                )
+                            }
+                        )
+                        NavigationBarItem(
+                            selected = uiState.selectedScreen == PikadoScreen.Projects,
+                            label = {
+                                Text(text = stringResource(id = R.string.projects_title))
+                            },
+                            onClick = {
+                                navController.navigate(ProjectsPage)
+                                viewModel.setScreen(PikadoScreen.Projects)
+                            },
+                            icon = {
+                                Icon(
+                                    modifier = Modifier
+                                        .size(dimensionResource(id = R.dimen.icon_size)),
+                                    painter = painterResource(id = R.drawable.folder),
+                                    contentDescription = stringResource(
+                                        id = R.string.projects_title
+                                    )
+                                )
+                            }
+                        )
+                        NavigationBarItem(
+                            selected = uiState.selectedScreen == PikadoScreen.Settings,
+                            label = {
+                                Text(text = stringResource(id = R.string.settings_title))
+                            },
+                            onClick = {
+                                navController.navigate(SettingsPage)
+                                viewModel.setScreen(PikadoScreen.Settings)
+                            },
+                            icon = {
+                                Icon(
+                                    modifier = Modifier
+                                        .size(dimensionResource(id = R.dimen.icon_size)),
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = stringResource(
+                                        id = R.string.settings_title
+                                    )
+                                )
+                            }
                         )
                     }
-                )
-                NavigationBarItem(
-                    selected = uiState.selectedScreen == PikadoScreen.Projects,
-                    label = {
-                        Text(text = stringResource(id = R.string.projects_title))
-                    },
-                    onClick = {
-                        navController.navigate(ProjectsPage)
-                        viewModel.setScreen(PikadoScreen.Projects)
-                    },
-                    icon = {
-                        Icon(
+                }
+            ) { padding ->
+                NavHost(
+                    navController = navController,
+                    startDestination = HomePage,
+                    modifier = Modifier.padding(padding)
+                ) {
+                    composable<HomePage> {
+                        HomeComponent(
                             modifier = Modifier
-                                .size(dimensionResource(id = R.dimen.icon_size)),
-                            painter = painterResource(id = R.drawable.folder),
-                            contentDescription = stringResource(
-                                id = R.string.projects_title
-                            )
+                                .padding(padding)
                         )
                     }
-                )
-                NavigationBarItem(
-                    selected = uiState.selectedScreen == PikadoScreen.Settings,
-                    label = {
-                        Text(text = stringResource(id = R.string.settings_title))
-                    },
-                    onClick = {
-                        navController.navigate(SettingsPage)
-                        viewModel.setScreen(PikadoScreen.Settings)
-                    },
-                    icon = {
-                        Icon(
-                            modifier = Modifier
-                                .size(dimensionResource(id = R.dimen.icon_size)),
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(
-                                id = R.string.settings_title
-                            )
-                        )
+
+                    composable<ProjectsPage> {
+                        ProjectsComponent()
                     }
-                )
+
+                    composable<SettingsPage> {
+                        SettingsComponent()
+                    }
+                }
             }
         }
-    ) { padding ->
-        NavHost(
-            navController = navController,
-            startDestination = HomePage,
-            modifier = Modifier.padding(padding)
-        ) {
-            composable<HomePage> {
-                HomeComponent(
-                    modifier = Modifier
-                        .padding(padding)
-                )
-            }
+    }
+}
 
-            composable<ProjectsPage> {
-                ProjectsComponent()
-            }
-
-            composable<SettingsPage> {
-                SettingsComponent()
-            }
-        }
+@Composable
+private fun LoadingScreen() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .width(dimensionResource(id = R.dimen.loading_screen_size))
+        )
     }
 }
