@@ -5,7 +5,7 @@ import android.app.Application
 
 class PikadoApplication: Application() {
 
-    private lateinit var container: Container
+    lateinit var container: Container
 
     override fun onCreate() {
         super.onCreate()

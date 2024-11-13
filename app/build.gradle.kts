@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.ktor.resources)
     implementation(libs.ktor.negotiation)
     implementation(libs.ktor.auth)
+    implementation(libs.ktor.json)
 
     testImplementation(libs.junit)
 
