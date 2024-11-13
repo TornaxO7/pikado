@@ -17,30 +17,25 @@ class VikunjaApi {
         const val API_SUFFIX: String = "/api/v1"
     }
 
-    constructor(
-        serverUrl: String,
-        loadTokens: (client: HttpClient) -> BearerTokens,
-        refreshTokens: (client: HttpClient) -> BearerTokens
-    ) {
-        client = HttpClient(CIO) {
-            install(Auth) {
-                bearer {
-                    loadTokens {
-                        loadTokens(client)
-                    }
-                    refreshTokens {
-                        refreshTokens(client)
-                    }
-                }
-            }
 
-            defaultRequest {
-                url("${serverUrl}${API_SUFFIX }")
-            }
-
-            install(ContentNegotiation) {
-                json()
-            }
-        }
-    }
+//        client = HttpClient(CIO) {
+//            install(Auth) {
+//                bearer {
+//                    loadTokens {
+//                        loadTokens(client)
+//                    }
+//                    refreshTokens {
+//                        refreshTokens(client)
+//                    }
+//                }
+//            }
+//
+//            defaultRequest {
+//                url("${serverUrl}${API_SUFFIX }")
+//            }
+//
+//            install(ContentNegotiation) {
+//                json()
+//            }
+//        }
 }
