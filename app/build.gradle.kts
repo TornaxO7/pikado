@@ -68,6 +68,9 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
+    // datastore
+    implementation(libs.androidx.datastore)
+
     // navigation
     implementation(libs.androidx.navigation.compose)
 

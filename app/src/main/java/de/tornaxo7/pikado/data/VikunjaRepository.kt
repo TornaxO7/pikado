@@ -9,5 +9,4 @@ class VikunjaRepository(
     api: VikunjaApi,
     userDatabase: UserDao,
 ) {
-
 }

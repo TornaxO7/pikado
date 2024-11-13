@@ -7,12 +7,13 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.10.01"
+composeBom = "2024.11.00"
 room-version = "2.6.1"
 ksp-version = "2.0.21-1.0.26"
-navigation = "2.8.3"
+navigation = "2.8.4"
 serialization = "1.7.3"
 ktor = "3.0.1"
+data-store = "1.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +39,8 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room-version" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-version" }
 
+# datastore
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "data-store"}
 # navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 
